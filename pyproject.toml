@@ -1,38 +1,44 @@
 [project]
 name = "pyryu"
+description = "Rust-powered Python bindings for the Ryu float formatting algorithm."
+readme = "README.md"
+license = { text = "MIT" }
 requires-python = ">=3.8"
+keywords = ["pyryu", "ryu"]
 classifiers = [
+    "License :: OSI Approved :: MIT License",
     "Programming Language :: Rust",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
     "Programming Language :: Python :: Implementation :: CPython",
     "Programming Language :: Python :: Implementation :: PyPy",
 ]
 dynamic = ["version"]
 authors = [{ name = "Chris Parker", email = "<mrcsparker@gmail.com>" }]
 
+[project.urls]
+Homepage = "https://github.com/mrcsparker/pyryu"
+Repository = "https://github.com/mrcsparker/pyryu"
+Documentation = "https://github.com/mrcsparker/pyryu"
+Issues = "https://github.com/mrcsparker/pyryu/issues"
+
+[dependency-groups]
+dev = [
+    "maturin>=1.12.6,<2.0",
+    "pytest>=8.1.1,<9.0",
+]
+
 [build-system]
-requires = ["maturin>=1.5,<2.0"]
+requires = ["maturin>=1.12.6,<2.0"]
 build-backend = "maturin"
 
-[tool.poetry]
-name = "pyryu"
-version = "1.0.0"
-description = "Python wrapper for ryu"
-authors = ["Chris Parker <mrcsparker@gmail.com>"]
-license = "MIT"
-readme = 'README.md'
-homepage = "https://github.com/mrcsparker/pyryu"
-repository = "https://github.com/mrcsparker/pyryu"
-documentation = "https://github.com/mrcsparker/pyryu"
-keywords = ['ryu', 'pyryu']
-
-[tool.poetry.dependencies]
-python = ">=3.8"
-maturin = "^1.5.1"
-
-[tool.poetry.group.dev.dependencies]
-black = "^24.4.0"
-pytest = "^8.1.1"
-
+[tool.uv]
+default-groups = ["dev"]
 
 [tool.maturin]
 features = ["pyo3/extension-module"]

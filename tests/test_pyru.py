@@ -1,5 +1,5 @@
 import pytest
-from pyryu import PyRyu
+from pyryu import PyRyu, format_f32, format_f64, format_native_f32, format_native_f64
 
 def test_new_instance():
     """Test creating a new PyRyu instance."""
@@ -42,3 +42,31 @@ def test_format_finite_valid_number():
     ryu = PyRyu()
     result = ryu.format_finite(123.456)
     assert result == '123.456'
+
+def test_format_native_uses_ryu_nonfinite_strings():
+    """Test native formatting preserves ryu's non-finite strings."""
+    ryu = PyRyu()
+    assert ryu.format_native(float('nan')) == 'NaN'
+    assert ryu.format_native(float('inf')) == 'inf'
+    assert ryu.format_native(float('-inf')) == '-inf'
+
+def test_module_level_format_f64():
+    """Test the convenience formatter for f64 values."""
+    assert format_f64(3.14159) == '3.14159'
+
+def test_module_level_format_f32():
+    """Test the convenience formatter for f32 values."""
+    assert format_f32(1.5) == '1.5'
+
+def test_module_level_format_rejects_nonfinite():
+    """Test module-level formatters reject non-finite inputs by default."""
+    with pytest.raises(ValueError):
+        format_f64(float('nan'))
+    with pytest.raises(ValueError):
+        format_f32(float('inf'))
+
+def test_module_level_native_formatters():
+    """Test native module-level formatters expose ryu's special values."""
+    assert format_native_f64(float('nan')) == 'NaN'
+    assert format_native_f64(float('inf')) == 'inf'
+    assert format_native_f32(float('-inf')) == '-inf'
